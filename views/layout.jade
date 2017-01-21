@@ -30,16 +30,18 @@ html
             nav.collapse.navbar-collapse.bs-navbar-collapse(role="navigation")
                 ul.nav.navbar-nav
                     li.linews
-                        a(href="/topics/new") 最新文章
+                        a(href="/topics/new") 新增物料
                     li.lihots
-                        a(href="/topics/hot") 热门文章
+                        a(href="/topics/hot") 成品查看
+                    li.litest
+                        a(href="/topics/test") 连接测试
                 ul.nav.navbar-nav.navbar-right
                     if user
                         if user.isAdmin
                             li
                                 a(href='/admin') 管理后台
                         li.liadd
-                            a(href='/topics/add') 发表文章
+                            a(href='/topics/add') 添加物料
                         li.liuser
                             a(href='/user')= user.username
                         li
@@ -58,8 +60,8 @@ html
                 block content
 
     footer.bs-footer(role="contentinfo")
-            p 模板基于 <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a> 文档页面制作，感谢 <a href="http://twitter.com/mdo" target="_blank">@mdo</a> 和 <a href="http://twitter.com/fat" target="_blank">@fat</a>
-            p 整站程序基于nodejs+express+mongoose，完整源代码开放，基于<a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>协议。源码可以在这里下载：<a href="https://github.com/unfish/expressjs-template" target="_blank">https://github.com/unfish/expressjs-template</a>.
+            p 模板基于 <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a> 文档页面制作，
+            p 基于<a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>协议。
 
     script(type='text/javascript',src="/javascripts/require.js")
     script(type='text/javascript').

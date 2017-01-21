@@ -16,5 +16,5 @@ npm-debug.log
 node_modules/
 NodeApp1.esproj/
 /logs
-/db
+/data
 
