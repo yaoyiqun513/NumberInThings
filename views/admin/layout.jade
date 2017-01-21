@@ -1,0 +1,96 @@
+doctype html
+html
+  head
+    meta(name="viewport",content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+    title= pageTitle?(pageTitle+' - '+Site.Title):Site.Title
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap-docs.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')    
+    script.
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-1318049-8', 'unfish.net');
+        ga('send', 'pageview');
+  body
+    header.navbar.navbar-inverse.navbar-fixed-top.bs-docs-nav(role="banner")
+            .navbar-header
+                button.navbar-toggle(type="button",data-toggle="collapse",data-target=".bs-navbar-collapse")
+                    span.sr-only Toggle navigation
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(href="/admin") 管理中心
+            nav.collapse.navbar-collapse.bs-navbar-collapse(role="navigation")
+                ul.nav.navbar-nav
+                    li.liusers
+                        a(href="/admin/users") 用户管理
+                    li.litopics
+                        a(href="/admin/topics") 文章管理
+                ul.nav.navbar-nav.navbar-right
+                    li
+                        a(href="/") 网站首页
+                    li
+                        a(href='/topics/add') 发表文章
+                    li
+                        a(href='/user')= user.username
+                    li
+                        a(href="/logout") 退 出
+    .bs-header
+            h1= bannerTitle || pageTitle
+            p!= pageTips||Func.GetRandomWords()
+            
+    .bs-container
+            .bs-sidebar.hidden-print(role="complementary")
+                block leftmenu
+                    ul.nav.bs-sidenav
+                        li.liusers
+                            a(href="javascript:;") 用户管理
+                            ul.nav
+                                li.liuserlist
+                                    a(href="/admin/users") 用户列表
+                                li.liuserstat
+                                    a(href="/admin/users/statistic") 用户统计
+                        li.litopics
+                            a(href="javascript:;") 文章管理
+                            ul.nav
+                                li.litopiclist
+                                    a(href="/admin/topics") 文章列表
+                                li.licommentlist
+                                    a(href="/admin/topics/comments") 评论列表
+
+            .bs-content(role="main")
+                block content
+
+    footer.bs-footer(role="contentinfo")
+            p 模板基于 <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a> 文档页面制作，感谢 <a href="http://twitter.com/mdo" target="_blank">@mdo</a> 和 <a href="http://twitter.com/fat" target="_blank">@fat</a>
+            p 整站程序基于nodejs+express+mongoose，完整源代码开放，基于<a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>协议。源码可以在这里下载：<a href="https://github.com/unfish/expressjs-template" target="_blank">https://github.com/unfish/expressjs-template</a>.
+
+    script(type='text/javascript',src="/javascripts/require.js")
+    script(type='text/javascript').
+        require.config({
+            baseUrl: '/javascripts/',
+            paths: {
+                'jquery': 'jquery-2.1.4.min',
+                'bootstrap': 'bootstrap.min',
+                'vue': 'vue',
+                'pager':'pager',
+                'ajax':'ajax',
+                'moment':'moment_langs.min'
+            },
+            shim:{
+                'bootstrap':{deps:['jquery']}
+            }
+        });
+        require(['jquery','bootstrap'], function ($, bootstrap) {
+              
+        });
+    if menu
+        script(type='text/javascript').
+            require(['jquery'], function ($) {
+                  $(function(){$('li.li#{menu[0]}').addClass('active');$('li.li#{menu[1]}').addClass('active');});
+            });
+            
+    block script

@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+  #addtopic.content.hidden
+      form#formTopic.formLarge
+        #title.input-group
+            span.input-group-addon 标　题
+            input.form-control(type="text",name="title")
+        span.error-block
+        #tags.input-group
+            span.input-group-addon 关键字
+            input.form-control(type="text",name="tags")
+        span.error-block
+        #thumb.input-group
+            span.input-group-addon 缩略图
+            input.form-control(type="text",name="thumb")
+        span.error-block
+        #content.input-group
+            textarea#txtContent.form-control(name="content",style="height:300px")
+        span.error-block
+        p
+        button.btn.btn-primary.btn-block#btnSave 保存
+        span.error-block
+
+block script
+    include add_js.jade

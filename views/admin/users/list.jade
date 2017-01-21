@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+    nav.navbar.navbar-default
+        form.navbar-form.navbar-left(role="search")
+            .form-group
+                label.sr-only 搜索
+                input.form-control(type="text",placeholder="Search")
+            button.btn.btn-default(type="submit") 搜索
+    table.table.table-striped
+        thead
+            tr
+                th 姓名
+                th 手机
+                th 邮箱
+                th 注册时间
+                th 最后登录
+                th 操作
+        tbody
+            tr(v-for="u in topics", id='{{u.id}}')
+                td {{u.username}}
+                td {{u.mobile}}
+                td {{u.email}}
+                td
+                    span.timeSpan {{u.created_at}}
+                td
+                    span.timeSpan {{u.updated_at}}
+                td
+                    button.btn.btn-xs.btn-danger 删除
+    {{{pager}}}
+
+block script
+    include list_js.jade

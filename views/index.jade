@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    if topics
+        each t in topics
+            .media
+                a.pull-left(href='/topic/#{t.id}')
+                    .media-object(style='background-image:url(/file/#{t.thumb.id}/#{t.thumb.filename});')
+                div.media-body
+                    h4.media-heading
+                        a(href='/topic/#{t.id}')= t.title
+                    p= t.summary
+                    p
+                        span.timeSpan= t.updated_at
+
+        != pager
