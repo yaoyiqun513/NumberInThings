@@ -50,7 +50,7 @@ module.exports.controller = function (app) {
             try {
                 var query = Topic.findById(req.params.id).populate('author thumb');
                 var topic = query.exec.sync(query);
-                topic.viewCount++;
+                //topic.viewCount++;
                 topic.save();
                 var comments = Comment.find.sync(Comment, {
                     'topic': topic.id

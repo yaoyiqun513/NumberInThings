@@ -14,7 +14,7 @@ var api = require('../../libs/apihelper');
 
 module.exports.controller = function (app) {
     //获取最新文章列表
-    app.get('/api/topics', function (req, res) {
+    app.get('/api/material', function (req, res) {
         Sync(function () {
             try {
                 var sort = req.query.type === 'hot' ? '-comment_at' : '-created_at';
@@ -32,7 +32,7 @@ module.exports.controller = function (app) {
         });
     });
 
-    app.post('/api/things', User.NeedLoginPOST, function (req, res) {
+    app.post('/api/material', User.NeedLoginPOST, function (req, res) {
         var material = new Material({
             title: req.body.title.length!=0 ? req.body.title : null,
             engtitle: req.body.engtitle.length!=0 ? req.body.engtitle : null,
@@ -41,7 +41,7 @@ module.exports.controller = function (app) {
            gongyingshang:req.body.gongyingshang.length!=0 ? req.body.gongyingshang : null,
            version:req.body.version,
            oldtitle:req.body.oldtitle.length!=0> 0 ? req.body.oldtitle : null,
-           content: req.body.content.length!=0> 0 ? req.body.ontent : null,
+           content: req.body.content.length!=0> 0 ? req.body.content : null,
            created_author:req.user.id,
            updated_author:req.user.id
         });
@@ -54,12 +54,12 @@ module.exports.controller = function (app) {
         });
     });
 
-    app.get('/api/things/:id', function (req, res) {
+    app.get('/api/material/:id', function (req, res) {
         Sync(function () {
             try {
-                var query = Material.findById(req.params.id);
+                var query = Material.findById(req.params.id).populate('created_author updated_author');
                 var material = query.exec.sync(query);
-                material.save();
+                //material.save();
                 res.json(api.Resp(material));
             } catch (error) {
                 res.json(api.Resp(null, error));
@@ -67,7 +67,7 @@ module.exports.controller = function (app) {
         });
     });
 
-    app.put('/api/topic/:id', User.NeedLoginPOST, function (req, res) {
+    app.put('/api/material/:id', User.NeedLoginPOST, function (req, res) {
         Sync(function () {
             try {
                 var topic = Topic.findById.sync(Topic, req.params.id);
@@ -86,7 +86,7 @@ module.exports.controller = function (app) {
         });
     });
 
-    app.del('/api/topic/:id', User.NeedLoginPOST, function (req, res) {
+    app.del('/api/material/:id', User.NeedLoginPOST, function (req, res) {
         var id = req.params.id;
         if (id == null || id.length == 0) {
             res.json(api.Resp(null, '参数错误'));
