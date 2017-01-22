@@ -16,7 +16,6 @@ script(type='text/javascript').
                 editor.addListener('contentchange',function(){
                     this.sync('txtContent');
                 });
-                ajax.SetupPLUploadJS('thumb', vue.thumb._id, vue.thumb.filename);
                 $(document).on('click', '#btnSave', function(e){
                     ajax.SubmitForm('/api/topic/#{id}','formTopic',e.target,function(json){location.href='/topic/'+json.result;}, true);
                 });

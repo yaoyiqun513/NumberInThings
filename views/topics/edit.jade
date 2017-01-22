@@ -11,10 +11,6 @@ block content
             span.input-group-addon 关键字
             input.form-control(type="text",name="tags", v-model="tags", placeholder="请输入关键词")
         span.error-block
-        #thumb.input-group
-            span.input-group-addon 缩略图
-            input.form-control(type="text",name="thumb", v-model="thumb._id", placeholder="请上传缩略图")
-        span.error-block
         #content.input-group
             textarea#txtContent.form-control(name="content",style="height:300px", v-model="content")
         span.error-block
