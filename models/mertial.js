@@ -2,6 +2,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     bcrypt = require('bcrypt');
 var config = require('../libs/config');
+var User = require('./user');
 
 var conn = mongoose.createConnection(config.DB.LogDB);
 materialSchema = new Schema({
@@ -26,12 +27,16 @@ materialSchema = new Schema({
   version: Number,
   //旧物料名称
   oldtitle: String,
+  //创作者
+  created_author: { type: mongoose.Schema.Types.ObjectId, ref: 'User',required:true, index: true },
+  //最后修改者
+  updated_author: { type: mongoose.Schema.Types.ObjectId, ref: 'User',required:true, index: true },
+  //创建时间
+  created_at: { type: Date, default: Date.now },
+  //更新时间
+  updated_at: { type: Date, default: Date.now },
   //备注
   content: String
-}, {
-  timestamps: {
-    createdAt: 'created_at'
-  }
 });
 Material = mongoose.model('Material', materialSchema);
 materialGroupSchema = new Schema({

@@ -12,7 +12,7 @@ script(type='text/javascript').
             });
             ajax.SetupPLUploadJS('thumb', '', '');
             $(document).on('click', '#btnSave', function(e){
-                ajax.SubmitForm('/api/things','formTopic',e.target,function(json){location.href='/things/'+json.result;});
+                ajax.SubmitForm('/api/things','formTopic',e.target,function(json){location.href='/things/'+json.result.id+'?title='+json.result.title;});
             });
         });
     });

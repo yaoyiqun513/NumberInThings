@@ -14,7 +14,7 @@ module.exports.controller = function(app) {
         res.render('things/list',{ pageTitle: '链接测试', menu:['test'], type:'test', page:req.query.page||1 });
     });
     app.get('/things/:id', function(req, res) {
-        res.render('things/topic',{ pageTitle: '文章页面', id:req.params.id });
+        res.render('things/material',{ pageTitle: req.query.title, id:req.params.id });
     }); 
     app.get('/topics/hot', function(req, res) {
         res.render('topics/list',{ pageTitle: '热门文章', menu:['hots'], type:'hot', page:req.query.page||1 });

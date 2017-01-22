@@ -1,0 +1,36 @@
+extends ../layout
+
+block content
+  #topic.content.hidden
+        | 发表于：
+        span.timeSpan {{topic.updated_at}}
+        | &nbsp;&nbsp;&nbsp;&nbsp;最后回复：
+        span.timeSpan {{topic.comment_at}}
+        | &nbsp;&nbsp;&nbsp;&nbsp;
+        span.tags {{topic.tags}}
+        | &nbsp;&nbsp;&nbsp;&nbsp;作者：
+        span.author {{topic.author.username}}
+        | &nbsp;&nbsp;&nbsp;&nbsp;
+        a.btn.btn-info.btn-xs(href='/topic/edit/{{topic._id}}') 修改文章
+        br
+        | 来源：
+        a(href='{{topic.source}}') {{topic.source}}
+        p {{{topic.content}}}
+        hr
+        #comments.list-group
+                div.list-group-item(v-for="c in comments", id='{{c._id}}', transition='expand')
+                    h4.list-group-item-heading {{c.content}}
+                    p.list-group-item-text
+                        span.timeSpan {{c.created_at}}
+                        button.btn.btn-xs.btn-danger.btnDelete(id='{{c._id}}') 删除
+        form#formComment.formLarge
+            #content.input-group
+                span.input-group-addon 评　论
+                textarea.form-control(name="content",rows="4")
+            span.error-block
+            p
+            button.btn.btn-primary#btnSave 添加评论
+            span.error-block
+
+block script
+    include material_js.jade

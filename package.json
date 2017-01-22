@@ -18,7 +18,7 @@
     "gridfs-stream": "*",
     "jade": "*",
     "method-override": "*",
-    "moment": "*",
+    "moment": "^2.17.1",
     "mongoose": "*",
     "mongoose-query-paginate": "*",
     "morgan": "*",

@@ -41,13 +41,15 @@ module.exports.controller = function (app) {
            gongyingshang:req.body.gongyingshang.length!=0 ? req.body.gongyingshang : null,
            version:req.body.version,
            oldtitle:req.body.oldtitle.length!=0> 0 ? req.body.oldtitle : null,
-           content: req.body.content.length!=0> 0 ? req.body.ontent : null
+           content: req.body.content.length!=0> 0 ? req.body.ontent : null,
+           created_author:req.user.id,
+           updated_author:req.user.id
         });
         material.save(function (err) {
             if (err) {
                 res.json(api.Resp(null, err));
             } else {
-                res.json(api.Resp(material.id));
+                res.json(api.Resp({id:material.id,title: req.body.title.length!=0 ? req.body.title : null}));
             }
         });
     });
