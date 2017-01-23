@@ -6,12 +6,12 @@ script(type='text/javascript').
               }
           })*/
           $(function(){
-              $.get('/api/materials', {type:'#{type}', page:#{page}},function(res){
+              $.get('/api/materialgroups', {type:'#{type}', page:#{page}},function(res){
           	    new Vue({
-          		    el:'#materiallist',
-                    data:{materials:res.result.results, pager:pager.GetPager('?page={}', res.result)}
+          		    el:'#materialgroupslist',
+                    data:{materialgroups:res.result.results, pager:pager.GetPager('?page={}', res.result)}
           		});
-          		$('#materiallist').removeClass('hidden');
+          		$('#materialgroupslist').removeClass('hidden');
           		$('.timeSpan').each(function(){
           		    $(this).html(moment($(this).html()).format('YYYY-MM-DD HH:mm'));
           		});

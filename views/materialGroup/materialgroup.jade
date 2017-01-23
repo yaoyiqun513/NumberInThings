@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+  #materialgroup.content.hidden
+        | 中文物料种类名称：
+        h1.title {{title}}
+        br
+        | 创建于：
+        span.timeSpan {{updated_at}}
+        | &nbsp;&nbsp;&nbsp;&nbsp;最后修改：
+        span.timeSpan {{updated_at}}
+        br
+        | 创建者：
+        span.created_author {{created_author.username}}
+        | &nbsp;&nbsp;&nbsp;&nbsp;最后编辑者：
+        span.created_author {{updated_author.username}}
+        | &nbsp;&nbsp;&nbsp;&nbsp;
+        a.btn.btn-info.btn-xs(href='/materialgroup/edit/#{id}') 编辑
+        br
+        | 英文标题:
+        span.engtitle {{engtitle}}
+        | &nbsp;&nbsp;&nbsp;&nbsp;编码值：
+        span.code {{code}}
+        hr
+block script
+    include materialGroup_js.jade

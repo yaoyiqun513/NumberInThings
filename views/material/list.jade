@@ -1,8 +1,6 @@
 extends ../layout
 
 block content
- button
-  a.navbar-brand(href="/material/add")= Site.Title
  #materiallist.content.hidden
         .media(v-for="t in materials")
             //a.pull-left(href='/material/{{t._id}}')
@@ -15,6 +13,7 @@ block content
                     span.timeSpan {{t.updated_at}}
 
         {{{pager}}}
-        
+    button
+  a.navbar-brand(href="/material/add")= "添加物料"
 block script
     include list_js.jade

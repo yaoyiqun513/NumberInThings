@@ -4,7 +4,7 @@ script(type='text/javascript', src='/javascripts/plupload/plupload.full.min.js')
 script(type='text/javascript').
     require(['jquery', 'ajax'], function ($, ajax) {
         $(function(){
-    		$('#addtopic').removeClass('hidden');
+    		$('#addmaterialgroup').removeClass('hidden');
             var editor = new UE.ui.Editor();
             editor.render('txtContent');
             editor.addListener('contentchange',function(){
@@ -12,7 +12,7 @@ script(type='text/javascript').
             });
             ajax.SetupPLUploadJS('thumb', '', '');
             $(document).on('click', '#btnSave', function(e){
-                ajax.SubmitForm('/api/material','formTopic',e.target,function(json){location.href='/material/'+json.result.id+'?title='+json.result.title;});
+                ajax.SubmitForm('/api/materialgroup','formMaterialgroup',e.target,function(json){location.href='/materialgroup/'+json.result.id;});
             });
         });
     });
