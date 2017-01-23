@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+  #addcategory.content.hidden
+      form#formCategory.formLarge
+        #title.input-group
+            span.input-group-addon 中文物料种类名称　            
+            input.form-control(type="text",name="title")
+        span.error-block
+        #engtitle.input-group
+            span.input-group-addon 英文物料种类名称　            
+            input.form-control(type="text",name="engtitle")
+        span.error-block
+        p
+        button.btn.btn-primary.btn-block#btnSave 保存
+        span.error-block
+
+block script
+    include add_js.jade

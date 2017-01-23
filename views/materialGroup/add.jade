@@ -1,0 +1,47 @@
+extends ../layout
+
+block content
+  #addtopic.content.hidden
+      form#formTopic.formLarge
+        #title.input-group
+            span.input-group-addon 中文物料名称　            
+            input.form-control(type="text",name="title")
+        span.error-block
+        #engtitle.input-group
+            span.input-group-addon 英文物料名称　            
+            input.form-control(type="text",name="engtitle")
+        span.error-block
+        #imgnum.input-group
+            span.input-group-addon 图号            
+            input.form-control(type="number",name="imgnum")
+        span.error-block
+        #des.input-group
+            span.input-group-addon 描述            
+            input.form-control(type="text",name="des")
+        span.error-block
+        #gongyingshang.input-group
+            span.input-group-addon 供应商            
+            input.form-control(type="text",name="gongyingshang")
+        span.error-block
+        #version.input-group
+            span.input-group-addon 版本            
+            input.form-control(type="number",name="version")
+        span.error-block
+        #oldtitle.input-group
+            span.input-group-addon 旧物料名称            
+            input.form-control(type="text",name="oldtitle")
+        span.error-block
+        //#thumb.input-group
+            span.input-group-addon 缩略图
+            input.form-control(type="text",name="thumb")
+        //span.error-block
+        P 备注
+        #content.input-group
+            textarea#txtContent.form-control(name="content",style="height:300px")
+        span.error-block
+        p
+        button.btn.btn-primary.btn-block#btnSave 保存
+        span.error-block
+
+block script
+    include add_js.jade

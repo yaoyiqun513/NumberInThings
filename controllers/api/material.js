@@ -17,7 +17,6 @@ module.exports.controller = function (app) {
     app.get('/api/materials', function (req, res) {
         Sync(function () {
             try {
-                var sort = req.query.type === 'hot' ? '-comment_at' : '-created_at';
                 var query = Material.find({}).populate('created_author updated_author');
                 var page = req.query.page || 1;
                 var result = query.paginate.sync(query, {

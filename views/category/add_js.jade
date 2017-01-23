@@ -1,0 +1,18 @@
+script(type='text/javascript', src='/javascripts/ueditor/ueditor.config.js')
+script(type='text/javascript', src='/javascripts/ueditor/ueditor.all.min.js')
+script(type='text/javascript', src='/javascripts/plupload/plupload.full.min.js')
+script(type='text/javascript').
+    require(['jquery', 'ajax'], function ($, ajax) {
+        $(function(){
+    		$('#addcategory').removeClass('hidden');
+            var editor = new UE.ui.Editor();
+            editor.render('txtContent');
+            editor.addListener('contentchange',function(){
+                this.sync('txtContent');
+            });
+            ajax.SetupPLUploadJS('thumb', '', '');
+            $(document).on('click', '#btnSave', function(e){
+                ajax.SubmitForm('/api/category','formCategory',e.target,function(json){location.href='/category/'+json.result.id;});
+            });
+        });
+    });

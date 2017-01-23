@@ -1,7 +1,7 @@
 
 module.exports.controller = function(app) {
   app.get('/', function(req, res) {
-      res.redirect(301, '/topics/new');
+      res.redirect(301, '/material');
   });
 
   app.get('/404', function(req, res) {

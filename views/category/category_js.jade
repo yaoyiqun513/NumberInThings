@@ -1,0 +1,16 @@
+script(type='text/javascript').
+    require(['jquery', 'vue', 'pager', 'moment', 'ajax'], function ($, Vue, pager, moment, ajax) {
+        var vue;
+        $(function(){
+            $.get('/api/category/#{id}', function(res){
+        	    vue = new Vue({
+        		    el:'#category',
+                    data:res.result
+        		});
+        		$('#category').removeClass('hidden');
+        		$('.timeSpan').each(function(){
+        		    $(this).html(moment($(this).html()).format('YYYY-MM-DD HH:mm'));
+        		});
+        	});
+        });
+    });

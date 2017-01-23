@@ -6,61 +6,93 @@ var User = require('./user');
 
 var conn = mongoose.createConnection(config.DB.LogDB);
 materialSchema = new Schema({
-  物料号: Number,
-  //中文物料名称
-  title: String,
-  //英文物料名称
-  engtitle: String,
-  //图号
-  imgnum: {
+    物料号: Number,
+    //中文物料名称
+    title: String,
+    //英文物料名称
+    engtitle: String,
+    //图号
+    imgnum: {
         type: Number,
         validate: {
             validator: NumberCodeFormatValidator('imgnum'),
             msg: '请输入有效的非重复编码'
         }
     },
-  //描述
-  des: String,
-  //供应商
-  gongyingshang: String,
-  //版本
-  version: Number,
-  //旧物料名称
-  oldtitle: String,
-  //创作者
-  created_author: { type: mongoose.Schema.Types.ObjectId, ref: 'User',required:true, index: true },
-  //最后修改者
-  updated_author: { type: mongoose.Schema.Types.ObjectId, ref: 'User',required:true, index: true },
-  //创建时间
-  created_at: { type: Date, default: Date.now },
-  //更新时间
-  updated_at: { type: Date, default: Date.now },
-  //备注
-  content: String
+    //描述
+    des: String,
+    //供应商
+    gongyingshang: String,
+    //版本
+    version: Number,
+    //旧物料名称
+    oldtitle: String,
+    //创作者
+    created_author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+        index: true
+    },
+    //最后修改者
+    updated_author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+        index: true
+    },
+    //创建时间
+    created_at: {
+        type: Date,
+        default: Date.now
+    },
+    //更新时间
+    updated_at: {
+        type: Date,
+        default: Date.now
+    },
+    //备注
+    content: String
 });
 Material = mongoose.model('Material', materialSchema);
 materialGroupSchema = new Schema({
-  //中文显示名称
-  title: String,
-  //英文显示名称
-  engtitle: String,
-  //编码号
-  code:{
+    //中文显示名称
+    title: String,
+    //英文显示名称
+    engtitle: String,
+    //编码号
+    code: {
         type: Number,
-        required: [true, "请输入编码号"],
+        require: [true, "未设定编码号"],
         unique: true,
-        validate: {
-            validator: CodeFormatValidator('编码号'),
-            msg: '请输入有效的编码'
-        }
+        max: [999, "超过极限最大值"],
+        min: [0, "小于0是不可接受的"]
     },
-  children: [{type: mongoose.Schema.Types.ObjectId, ref: 'Material'}]
-});
-MaterialGroup = mongoose.model('MaterialGroup', materialGroupSchema);
-workTableSchema = new Schema({
-  中文显示名称: String,
-  英文显示名称: String,
-  编码号:{
+    //创作者
+    created_author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+        index: true
+    },
+    //最后修改者
+    updated_author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+        index: true
+    },
+    //创建时间
+    created_at: {
+        type: Date,
+        default: Date.now
+    },
+    //更新时间
+    updated_at: {
+        type: Date,
+        default: Date.now
+    },
+    /*{
         type: Number,
         required: [true, "请输入编码号"],
         unique: true,
@@ -68,18 +100,75 @@ workTableSchema = new Schema({
             validator: NumberCodeFormatValidator('编码号'),
             msg: '请输入有效的编码'
         }
-    },
-    children: {type: mongoose.Schema.Types.ObjectId, ref: 'MaterialGroup'}
+    },*/
+    children: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Material'
+    }]
 });
-WorkTable = mongoose.model('WorkTable', workTableSchema);
+MaterialGroup = mongoose.model('MaterialGroup', materialGroupSchema);
+categroySchema = new Schema({
+    //中文显示名称
+    title: String,
+    //英文显示名称
+    engtitle: String,
+    //编码号
+    code: {
+        type: Number,
+        require: [true, "未设定编码号"],
+        unique: true,
+        max: [99, "超过极限最大值99"],
+        min: [0, "小于0是不可接受的"]
+    },
+    /*{
+        type: Number,
+        required: [true, "请输入编码号"],
+        unique: true,
+        validate: {
+            validator: NumberCodeFormatValidator('编码号'),
+            msg: '请输入有效的编码'
+        }
+    },*/
+    //创作者
+    created_author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+        index: true
+    },
+    //最后修改者
+    updated_author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+        index: true
+    },
+    //创建时间
+    created_at: {
+        type: Date,
+        default: Date.now
+    },
+    //更新时间
+    updated_at: {
+        type: Date,
+        default: Date.now
+    },
+    children: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'MaterialGroup'
+    }]
+});
+Category = mongoose.model('Category', categroySchema);
+
 function NumberCodeFormatValidator(path) {
-      return function (value, respond) {
+    return function (value, respond) {
         var model = this.model(this.constructor.modelName);
         var query = buildQuery(path, value, this._id);
         var callback = buildValidationCallback(respond);
         model.findOne(query, callback);
     };
 }
+
 function buildQuery(field, value, id) {
     var query = {
         $and: []
@@ -100,6 +189,7 @@ function buildQuery(field, value, id) {
     query.$and.push(target);
     return query;
 }
+
 function buildValidationCallback(respond) {
     return function (err, document) {
         respond(!document);
@@ -107,4 +197,4 @@ function buildValidationCallback(respond) {
 }
 module.exports.Material = Material;
 module.exports.MaterialGroup = MaterialGroup;
-module.exports.WorkTable = WorkTable;
+module.exports.Category = Category;

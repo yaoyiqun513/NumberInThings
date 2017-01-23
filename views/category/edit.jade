@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+  #editcategory.content.hidden
+      form#formCategory.formLarge
+        #title.input-group
+            span.input-group-addon 中文物料种类名称
+            input.form-control(type="text",name="title", v-model="title", placeholder="请输入标题")
+        span.error-block
+        #engtitle.input-group
+            span.input-group-addon 英文物料种类名称
+            input.form-control(type="text",name="engtitle", v-model="engtitle", placeholder="请输入英文标题")
+        span.error-block
+        p
+        button.btn.btn-primary.btn-block#btnSave 保存
+        span.error-block
+
+block script
+    include edit_js.jade
