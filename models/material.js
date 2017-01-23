@@ -40,18 +40,21 @@ materialSchema = new Schema({
 });
 Material = mongoose.model('Material', materialSchema);
 materialGroupSchema = new Schema({
-  中文显示名称: String,
-  英文显示名称: String,
-  编码号:{
+  //中文显示名称
+  title: String,
+  //英文显示名称
+  engtitle: String,
+  //编码号
+  code:{
         type: Number,
         required: [true, "请输入编码号"],
         unique: true,
         validate: {
-            validator: NumberCodeFormatValidator('编码号'),
+            validator: CodeFormatValidator('编码号'),
             msg: '请输入有效的编码'
         }
     },
-  children: {type: mongoose.Schema.Types.ObjectId, ref: 'Material'}
+  children: [{type: mongoose.Schema.Types.ObjectId, ref: 'Material'}]
 });
 MaterialGroup = mongoose.model('MaterialGroup', materialGroupSchema);
 workTableSchema = new Schema({
