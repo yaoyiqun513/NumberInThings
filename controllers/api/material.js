@@ -7,8 +7,8 @@ var t = require('../../models/topic'),
     Comment = t.Comment;
 var m = require('../../models/mertial'),
     Material = m.Material,
-    MaterialGroup=m.MaterialGroup,
-    WorkTable=m.WorkTable;
+    MaterialGroup = m.MaterialGroup,
+    WorkTable = m.WorkTable;
 var Sync = require('syncho');
 var api = require('../../libs/apihelper');
 
@@ -34,22 +34,25 @@ module.exports.controller = function (app) {
 
     app.post('/api/material', User.NeedLoginPOST, function (req, res) {
         var material = new Material({
-            title: req.body.title.length!=0 ? req.body.title : null,
-            engtitle: req.body.engtitle.length!=0 ? req.body.engtitle : null,
-           imgnum:req.body.imgnum,
-           des:req.body.des.length!=0 ? req.body.des : null,
-           gongyingshang:req.body.gongyingshang.length!=0 ? req.body.gongyingshang : null,
-           version:req.body.version,
-           oldtitle:req.body.oldtitle.length!=0> 0 ? req.body.oldtitle : null,
-           content: req.body.content.length!=0> 0 ? req.body.content : null,
-           created_author:req.user.id,
-           updated_author:req.user.id
+            title: req.body.title.length != 0 ? req.body.title : null,
+            engtitle: req.body.engtitle.length != 0 ? req.body.engtitle : null,
+            imgnum: req.body.imgnum,
+            des: req.body.des.length != 0 ? req.body.des : null,
+            gongyingshang: req.body.gongyingshang.length != 0 ? req.body.gongyingshang : null,
+            version: req.body.version,
+            oldtitle: req.body.oldtitle.length != 0 > 0 ? req.body.oldtitle : null,
+            content: req.body.content.length != 0 > 0 ? req.body.content : null,
+            created_author: req.user.id,
+            updated_author: req.user.id
         });
         material.save(function (err) {
             if (err) {
                 res.json(api.Resp(null, err));
             } else {
-                res.json(api.Resp({id:material.id,title: req.body.title.length!=0 ? req.body.title : null}));
+                res.json(api.Resp({
+                    id: material.id,
+                    title: req.body.title.length != 0 ? req.body.title : null
+                }));
             }
         });
     });
@@ -70,16 +73,21 @@ module.exports.controller = function (app) {
     app.put('/api/material/:id', User.NeedLoginPOST, function (req, res) {
         Sync(function () {
             try {
-                var topic = Topic.findById.sync(Topic, req.params.id);
-                if (topic.author != req.user.id) {
+                var material = Material.findById.sync(Material, req.params.id);
+                /*if (material.created_author != req.user.id) {
                     res.json(api.Resp(null, '权限错误')).status(403);
-                }
-                topic.title = req.body.title;
-                topic.tags = req.body.tags.length > 0 ? req.body.tags.split(',') : null;
-                topic.content = req.body.content;
-                topic.thumb = req.body.thumb;
-                topic.save.sync();
-                res.json(api.Resp(topic.id));
+                }*/
+                material.title = req.body.title.length != 0 ? req.body.title : null,
+                    material.engtitle = req.body.engtitle.length != 0 ? req.body.engtitle : null,
+                    material.imgnum = req.body.imgnum,
+                    material.des = req.body.des.length != 0 ? req.body.des : null,
+                    material.gongyingshang = req.body.gongyingshang.length != 0 ? req.body.gongyingshang : null,
+                    material.version = req.body.version,
+                    material.oldtitle = req.body.oldtitle.length != 0 > 0 ? req.body.oldtitle : null,
+                    material.content = req.body.content.length != 0 > 0 ? req.body.content : null,
+                    material.updated_author = req.user.id
+                material.save.sync();
+                res.json(api.Resp(material.id));
             } catch (error) {
                 res.json(api.Resp(null, error));
             }

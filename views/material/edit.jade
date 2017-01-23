@@ -4,13 +4,34 @@ block content
   #editmaterial.content.hidden
       form#formMaterial.formLarge
         #title.input-group
-            span.input-group-addon 标　题
+            span.input-group-addon 中文物料名称
             input.form-control(type="text",name="title", v-model="title", placeholder="请输入标题")
         span.error-block
-        #tags.input-group
-            span.input-group-addon 关键字
-            input.form-control(type="text",name="tags", v-model="tags", placeholder="请输入关键词")
+        #engtitle.input-group
+            span.input-group-addon 英文物料名称
+            input.form-control(type="text",name="engtitle", v-model="engtitle", placeholder="请输入英文标题")
         span.error-block
+        #imgnum.input-group
+            span.input-group-addon 图号
+            input.form-control(type="number",name="imgnum", v-model="imgnum", placeholder="请输入图号")
+        span.error-block
+        #des.input-group
+            span.input-group-addon 描述
+            input.form-control(type="text",name="des", v-model="des", placeholder="请输入描述")
+        span.error-block
+        #gongyingshang.input-group
+            span.input-group-addon 供应商
+            input.form-control(type="text",name="gongyingshang", v-model="gongyingshang", placeholder="请输入供应商")
+        span.error-block
+        #version.input-group
+            span.input-group-addon 版本
+            input.form-control(type="number",name="version", v-model="version", placeholder="请输入版本")
+        span.error-block
+        #oldtitle.input-group
+            span.input-group-addon 旧物料名称
+            input.form-control(type="text",name="oldtitle", v-model="oldtitle", placeholder="请输入旧物料名称")
+        span.error-block
+        P.navbar-text.navbar-left 备注
         #content.input-group
             textarea#txtContent.form-control(name="content",style="height:300px", v-model="content")
         span.error-block

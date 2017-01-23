@@ -7,7 +7,7 @@ module.exports.controller = function(app) {
         res.render('material/list',{ pageTitle: '链接测试', menu:['test'], type:'test', page:req.query.page||1 });
     });
     app.get('/material/:id', function(req, res) {
-        res.render('material/material',{ pageTitle: req.query.title, id:req.params.id });
+        res.render('material/material',{ pageTitle: '物料页面', id:req.params.id });
     }); 
     app.get('/material/edit/:id', User.NeedLoginGET, function(req, res) {
         res.render('material/edit',{ pageTitle: '修改物料', id:req.params.id });
