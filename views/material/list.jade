@@ -2,14 +2,14 @@ extends ../layout
 
 block content
  button
-  a.navbar-brand(href="/topics/test/add")= Site.Title
- #topiclist.content.hidden
-        .media(v-for="t in topics")
-            a.pull-left(href='/topic/{{t._id}}')
+  a.navbar-brand(href="/material/add")= Site.Title
+ #materiallist.content.hidden
+        .media(v-for="t in materials")
+            //a.pull-left(href='/material/{{t._id}}')
                 .media-object(v-thumbimage='t')
             div.media-body
                 h4.media-heading
-                    a(href='/topic/{{t._id}}') {{t.title}}
+                    a(href='/material/{{t._id}}') {{t.title}}
                 p {{{t.summary}}}
                 p
                     span.timeSpan {{t.updated_at}}

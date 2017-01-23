@@ -1,0 +1,24 @@
+script(type='text/javascript', src='/javascripts/ueditor/ueditor.config.js')
+script(type='text/javascript', src='/javascripts/ueditor/ueditor.all.min.js')
+script(type='text/javascript', src='/javascripts/plupload/plupload.full.min.js')
+script(type='text/javascript').
+    require(['jquery', 'vue','ajax'], function ($, Vue, ajax) {
+        var vue;
+        $(function(){
+            $.get('/api/material/#{id}', function(res){
+        	    vue = new Vue({
+        		    el:'#editmaterial',
+                    data:res.result.material
+        		});
+        		$('#editmaterial').removeClass('hidden');
+                var editor = new UE.ui.Editor();
+                editor.render('txtContent');
+                editor.addListener('contentchange',function(){
+                    this.sync('txtContent');
+                });
+                $(document).on('click', '#btnSave', function(e){
+                    ajax.SubmitForm('/api/material/#{id}','formMaterial',e.target,function(json){location.href='/material/'+json.result;}, true);
+                });
+        	});
+        });
+    });

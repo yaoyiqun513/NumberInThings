@@ -14,11 +14,11 @@ var api = require('../../libs/apihelper');
 
 module.exports.controller = function (app) {
     //获取最新文章列表
-    app.get('/api/material', function (req, res) {
+    app.get('/api/materials', function (req, res) {
         Sync(function () {
             try {
                 var sort = req.query.type === 'hot' ? '-comment_at' : '-created_at';
-                var query = Topic.find({}).populate('author thumb').sort(sort);
+                var query = Material.find({}).populate('created_author updated_author');
                 var page = req.query.page || 1;
                 var result = query.paginate.sync(query, {
                     perPage: 20,
